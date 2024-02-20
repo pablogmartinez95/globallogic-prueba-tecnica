@@ -1,0 +1,56 @@
+<section class="character-info">
+    @if(character) {
+        <app-character-card [character]="character" mode="edit"></app-character-card>
+        <form class="character-edit-form" #characterForm="ngForm">
+            <mat-form-field>
+                <mat-label for="name">Name</mat-label>
+                <input matInput placeholder="Name" name="name" #name="ngModel" [(ngModel)]="character.name" minlength="1" maxlength="30" required>
+                @if(name.errors?.['required']) {
+                    <mat-error>Nombre requerido.</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label for="image">Image</mat-label>
+                <input matInput placeholder="Image" name="image" #image="ngModel" [(ngModel)]="character.image" pattern="(https?:\/\/.*\.(?:png|jpg|jpeg))" required>
+                @if(image.errors?.['pattern']) {
+                    <mat-error>URL invalida.</mat-error>
+                } @else if(image.errors?.['required']) {
+                    <mat-error>Imagen requerida.</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Species</mat-label>
+                <mat-select name="species" [(ngModel)]="character.species" required>
+                    @for (species of speciesType; track species) {
+                    <mat-option [value]="species">{{species}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <mat-select name="status" [(ngModel)]="character.status" required>
+                    @for (status of statusTypes; track status) {
+                    <mat-option [value]="status">{{status}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last known location:</mat-label>
+                <input matInput placeholder="Location" name="location" #location="ngModel" [(ngModel)]="character.location" required>
+                @if(location.errors?.['required']) {
+                    <mat-error>Campo requerido.</mat-error>
+                }
+            </mat-form-field>
+            <div class="action-buttons-container">
+                @if(actionType === 'edit') {
+                    <button mat-raised-button color="primary" type="submit" (click)="updateCharacter()" [disabled]="characterForm.invalid">Update</button>
+                } @else {
+                    <button mat-raised-button color="primary" type="submit" (click)="createCharacter()" [disabled]="characterForm.invalid">Create</button>
+                }
+                <button mat-raised-button color="secondary" (click)="cancelEditing()">Cancel</button>
+            </div>
+        </form>
+    } @else {
+        <p>Ups! Parece que no se pudo obtener la información de este personaje.</p>
+    }
+</section>

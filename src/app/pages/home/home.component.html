@@ -1,0 +1,7 @@
+<section class="character-list-container">
+    @for (character of characters; track character.id) {
+        <app-character-card [character]="character"></app-character-card>
+    } @empty {
+        <p>No hay items en la lista.</p>
+    }
+</section>

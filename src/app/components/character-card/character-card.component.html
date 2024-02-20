@@ -1,0 +1,39 @@
+<mat-card class="character-card" color="primary">
+    <mat-card-header>
+        <mat-card-title>
+            @if(character.name.length) {
+                {{character.name}}
+            } @else {
+                <span class="danger">*Se necesita un nombre*</span>
+            }
+        </mat-card-title>
+        <mat-card-subtitle>
+            <app-character-status [status]="character.status">
+                {{character.species}} - {{character.status}}
+            </app-character-status>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="character-image" [src]="character.image" alt="Photo of {{character.name}}" appBrokenImage>
+    <mat-card-content style="padding: 8px; display: flex; flex-direction: column;">
+        <span style="font-weight: 600;">
+            Last known location:
+        </span>
+        <span>
+            @if(character.location.length) {
+                {{character.location}}
+            } @else {
+                <span class="danger">*Se necesita una ubicación*</span>
+            }
+        </span>
+    </mat-card-content>
+    @if(mode === 'view') {
+        <mat-card-actions class="card-action-buttons">
+            <button mat-icon-button color="primary" (click)="actionNavigateToEdit(character.id)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="actionDeleteCharacter(character.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-card-actions>
+    }
+</mat-card>
