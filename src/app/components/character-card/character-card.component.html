@@ -1,6 +1,6 @@
 <mat-card class="character-card" color="primary">
     <mat-card-header>
-        <mat-card-title>
+        <mat-card-title class="card-title">
             @if(character.name.length) {
                 {{character.name}}
             } @else {
@@ -18,7 +18,7 @@
         <span style="font-weight: 600;">
             Last known location:
         </span>
-        <span>
+        <span class="card-title">
             @if(character.location.length) {
                 {{character.location}}
             } @else {

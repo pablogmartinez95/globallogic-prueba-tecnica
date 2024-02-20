@@ -36,7 +36,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Last known location:</mat-label>
-                <input matInput placeholder="Location" name="location" #location="ngModel" [(ngModel)]="character.location" required>
+                <input matInput placeholder="Location" name="location" #location="ngModel" [(ngModel)]="character.location" minlength="1" maxlength="30" required>
                 @if(location.errors?.['required']) {
                     <mat-error>Campo requerido.</mat-error>
                 }
